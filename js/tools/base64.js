@@ -10,6 +10,9 @@
 (function () {
   'use strict';
 
+  /* 工具图标（内联 SVG，随本文件加载，不依赖公共注册表） */
+  var ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v8a2 2 0 1 0 4 0V6a2 2 0 1 0-4 0"/><path d="M14 6a2 2 0 1 1 4 0v10"/><path d="M14 16a2 2 0 1 0 4 0"/><path d="M4 20h16"/></svg>';
+
   /* ---------- 核心：UTF-8 与 Base64 互转（绕开 btoa 的latin1 限制） ---------- */
 
   function utf8ToBytes(str) {
@@ -87,7 +90,7 @@
     id: 'base64',
     name: 'Base64 编解码',
     category: '编码 / 哈希',
-    icon: ToolBox.ui.icon('binary'),
+    icon: ICON,
     description: '文本与 Base64 互转，支持中文、URL 安全变体与宽松解码',
 
     render: function (root) {
@@ -113,11 +116,11 @@
         '</section>' +
 
         '<section class="card">' +
-          '<div class="card-head"><h2 class="card-title">输出</h2></div>' +
+          '<div class="card-head"><h2 class="card-title">输出</h2>' +
+            '<span class="card-head-actions"><button class="btn-icon" type="button" id="b64-copy" title="复制结果" aria-label="复制结果">' + iconCopy + '</button></span></div>' +
           '<textarea id="b64-output" class="textarea" rows="6" spellcheck="false" readonly></textarea>' +
           '<div class="field-meta">' +
             '<span id="b64-out-hint"></span>' +
-            '<span><button class="btn-icon" type="button" id="b64-copy" title="复制结果" aria-label="复制结果">' + iconCopy + '</button></span>' +
           '</div>' +
         '</section>';
 

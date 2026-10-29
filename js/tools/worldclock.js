@@ -11,6 +11,9 @@
 (function () {
   'use strict';
 
+  /* 工具图标（内联 SVG，随本文件加载，不依赖公共注册表） */
+  var ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>';
+
   /* ---------- 预设城市（IANA 时区） ---------- */
   var PRESET = [
     ['北京', 'Asia/Shanghai'],
@@ -101,7 +104,7 @@
     id: 'worldclock',
     name: '世界时间',
     category: '时间工具',
-    icon: ToolBox.ui.icon('globe'),
+    icon: ICON,
     description: '世界各地实时日期时间对照，标注 UTC 偏移与本地时差，可复制完整时间',
 
     render: function (root) {

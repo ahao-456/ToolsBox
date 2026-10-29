@@ -9,6 +9,9 @@
 (function () {
   'use strict';
 
+  /* 工具图标（内联 SVG，随本文件加载，不依赖公共注册表） */
+  var ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+
   var pad = function (n) { return String(n).padStart(2, '0'); };
 
   function fmtLocal(d) {
@@ -52,7 +55,7 @@
     id: 'timestamp',
     name: '时间戳转换',
     category: '时间工具',
-    icon: ToolBox.ui.icon('clock'),
+    icon: ICON,
     description: 'Unix 时间戳与日期时间双向转换，支持秒 / 毫秒自动识别、实时时钟与多格式输出',
 
     render: function (root) {

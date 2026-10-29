@@ -10,6 +10,9 @@
 (function () {
   'use strict';
 
+  /* 工具图标（内联 SVG，随本文件加载，不依赖公共注册表） */
+  var ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
+
   /* ---------- 常量 ---------- */
   // 校验位加权因子（GB 11643-1999）
   var WEIGHTS = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
@@ -125,7 +128,7 @@
     id: 'idcard',
     name: '身份证年龄计算',
     category: '生活工具',
-    icon: ToolBox.ui.icon('user'),
+    icon: ICON,
     description: '解析身份证号，计算年龄、出生日期、归属地、性别、生肖与星座',
 
     render: function (root) {

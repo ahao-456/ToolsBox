@@ -6,11 +6,14 @@
 (function () {
   'use strict';
 
+  /* 工具图标（内联 SVG，随本文件加载，不依赖公共注册表） */
+  var ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>';
+
   ToolBox.register({
     id: 'md5',
     name: 'MD5 计算器',
     category: '编码 / 哈希',
-    icon: ToolBox.ui.icon('hash'),
+    icon: ICON,
     description: '计算文本的 MD5 哈希值，支持 32 位小写 / 大写与 16 位截取格式，输入即时计算',
 
     render: function (root) {

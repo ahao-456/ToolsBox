@@ -11,6 +11,9 @@
 (function () {
   'use strict';
 
+  /* 工具图标（内联 SVG，随本文件加载，不依赖公共注册表） */
+  var ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
+
   /* ---------- 编解码核心 ---------- */
 
   function encode(text, mode, plus) {
@@ -46,7 +49,7 @@
     id: 'url',
     name: 'URL 编解码',
     category: '编码 / 哈希',
-    icon: ToolBox.ui.icon('link'),
+    icon: ICON,
     description: 'URL 百分号编码与解码，支持组件 / 整链两种模式与表单空格处理',
 
     render: function (root) {
@@ -74,11 +77,11 @@
         '</section>' +
 
         '<section class="card">' +
-          '<div class="card-head"><h2 class="card-title">输出</h2><span class="badge" id="url-mode-badge" hidden></span></div>' +
+          '<div class="card-head"><h2 class="card-title">输出</h2><span class="badge" id="url-mode-badge" hidden></span>' +
+            '<span class="card-head-actions"><button class="btn-icon" type="button" id="url-copy" title="复制结果" aria-label="复制结果">' + iconCopy + '</button></span></div>' +
           '<textarea id="url-output" class="textarea" rows="6" spellcheck="false" readonly></textarea>' +
           '<div class="field-meta">' +
             '<span id="url-out-hint"></span>' +
-            '<span><button class="btn-icon" type="button" id="url-copy" title="复制结果" aria-label="复制结果">' + iconCopy + '</button></span>' +
           '</div>' +
         '</section>';
 
