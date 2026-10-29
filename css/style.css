@@ -289,6 +289,21 @@ svg { display: block; }
 .hint { font-size: 12.5px; color: var(--text-3); margin-top: 7px; }
 .hint.error { color: var(--danger); }
 
+/* JSON 工具：卡片头选项与按钮组 */
+.card-head .json-opt {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-left: auto; font-size: 12.5px; font-weight: 500; color: var(--text-2);
+  cursor: pointer;
+}
+.card-head .json-opt + .json-opt { margin-left: 14px; }
+.card-head .json-opt input[type="checkbox"] { accent-color: var(--accent); }
+.card-head .json-opt .select {
+  width: auto; padding: 3px 8px; font-size: 12.5px;
+  background: var(--fill); border: 1px solid var(--border); border-radius: 6px;
+}
+.json-btns { display: inline-flex; gap: 8px; flex-wrap: wrap; }
+.json-btns .btn { padding: 5px 12px; font-size: 12.5px; }
+
 /* ---------- 按钮 ---------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 6px;
@@ -325,6 +340,7 @@ svg { display: block; }
 }
 .result-row:hover { border-color: var(--border); }
 .result-label { flex: none; font-size: 12.5px; font-weight: 600; color: var(--text-2); white-space: nowrap; }
+.result-utc { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--text-3); }
 .result-value {
   flex: 1; min-width: 0;
   font-family: var(--mono); font-size: 13px;
@@ -392,4 +408,12 @@ svg { display: block; }
   .main { margin-left: 0; padding: 24px 18px 60px; }
   .card { padding: 18px; }
   .tool-header h1 { font-size: 20px; }
+
+  /* iOS Safari：字号 <16px 聚焦时会自动缩放页面，移动端统一提到 16px */
+  .input, .textarea, .select { font-size: 16px; }
+
+  /* 触屏：复制等图标按钮加大点击面积 */
+  .btn-icon { width: 36px; height: 36px; }
+  .btn-icon svg { width: 16px; height: 16px; }
+  .nav-item { padding: 11px 10px; }
 }
