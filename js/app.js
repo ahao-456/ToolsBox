@@ -197,7 +197,17 @@
   function renderHome() {
     topbarTitle.textContent = 'ToolsBox';
     document.title = 'ToolsBox';
-    var cards = registry.map(function (t) {
+    /* 首页卡片顺序与侧边栏一致：按分类首次出现的顺序分组，组内保持注册顺序（不显示分类） */
+    var catOrder = {};
+    var catIdx = 0;
+    registry.forEach(function (t) {
+      var cat = t.category || '其他工具';
+      if (catOrder[cat] === undefined) catOrder[cat] = catIdx++;
+    });
+    var sorted = registry.slice().sort(function (a, b) {
+      return catOrder[a.category || '其他工具'] - catOrder[b.category || '其他工具'];
+    });
+    var cards = sorted.map(function (t) {
       return '<a class="tool-card" href="#/' + encodeURIComponent(t.id) + '">' +
         '<span class="tool-card-icon">' + t.icon + '</span>' +
         '<span class="tool-card-info">' +
