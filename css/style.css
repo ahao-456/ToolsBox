@@ -486,6 +486,30 @@ svg { display: block; }
 .qr-empty { font-size: 13px; color: var(--text-3); }
 .btn-row { display: inline-flex; gap: 8px; flex-wrap: wrap; }
 
+/* ---------- 文本查找替换工具 ---------- */
+.rep-find-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+.rep-field { flex: 1; min-width: 200px; }
+.rep-field .label { margin-bottom: 6px; }
+.rep-opts { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
+.rep-opt {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 500; color: var(--text-2); cursor: pointer;
+}
+.rep-opt:hover { color: var(--text); }
+.rep-opt input { accent-color: var(--accent); }
+.rep-opt input:disabled + span, .rep-opt:has(input:disabled) { opacity: 0.45; cursor: not-allowed; }
+.rep-bar { display: flex; align-items: center; gap: 10px; }
+.rep-bar .btn { margin-left: auto; }
+.rep-preview {
+  margin-top: 14px; padding: 12px 14px;
+  max-height: 220px; overflow-y: auto;
+  background: var(--fill); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  font-family: var(--mono); font-size: 12.5px; line-height: 1.7;
+  white-space: pre-wrap; word-break: break-all;
+}
+.rep-mark { background: var(--accent-soft); color: var(--accent); border-radius: 3px; padding: 0 1px; }
+.rep-mini { padding: 4px 10px; font-size: 12px; }
+
 /* ---------- 响应式 ---------- */
 @media (max-width: 920px) {
   .sidebar {

@@ -253,14 +253,17 @@
       '</div>';
   }
 
-  /* ---------- 全局复制代理：data-copy="#目标id" ---------- */
+  /* ---------- 全局复制代理：data-copy="#目标id" ----------
+     目标可以是 span/div（读 textContent）或 input/textarea（读 value） ---------- */
   function initCopy() {
     view.addEventListener('click', function (e) {
       var btn = e.target.closest('[data-copy]');
       if (!btn) return;
       var target = view.querySelector(btn.getAttribute('data-copy'));
       if (!target) return;
-      var text = target.textContent.trim();
+      var tag = target.tagName;
+      var text = (tag === 'TEXTAREA' || tag === 'INPUT') ? target.value : target.textContent;
+      text = (text || '').trim();
       if (!text) { ToolBox.ui.toast('暂无可复制的内容', 'error'); return; }
       ToolBox.ui.copyText(text).then(function (ok) {
         if (!ok) return ToolBox.ui.toast('复制失败，请手动选择复制', 'error');
