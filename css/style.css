@@ -403,6 +403,12 @@ svg { display: block; }
 }
 .cur-row:hover { border-color: var(--border); background: var(--surface); }
 .cur-row:active { background: var(--accent-soft); }
+.cur-flagcell { width: 30px; flex: none; display: inline-flex; align-items: center; justify-content: center; }
+.cur-flag {
+  width: 22px; height: auto; display: block;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px var(--border); /* 白底国旗（如日本）在浅色主题下需要描边 */
+}
 .cur-symbol {
   width: 54px; flex: none; text-align: center;
   font-size: 20px; font-weight: 600; line-height: 1.25;
@@ -526,6 +532,8 @@ svg { display: block; }
   /* 货币符号工具：行更紧凑、符号列稍窄 */
   .cur-row { gap: 10px; padding: 12px; }
   .cur-symbol { width: 46px; font-size: 18px; }
+  .cur-flagcell { width: 24px; }
+  .cur-flag { width: 18px; }
 
   /* Cron 工具：构建输入 iOS 防缩放（特异性覆盖桌面 13px） */
   .cron-fcontrols .input { font-size: 16px; }
