@@ -376,7 +376,7 @@ svg { display: block; }
 .notfound p { margin: 0 0 10px; color: var(--text-2); }
 
 /* ---------- 货币符号工具 ---------- */
-.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; margin-bottom: 12px; }
 .chip {
   padding: 5px 14px; font-size: 12.5px; font-weight: 500; color: var(--text-2);
   background: var(--fill); border: 1px solid var(--border); border-radius: 99px;
@@ -509,6 +509,7 @@ svg { display: block; }
 }
 .rep-mark { background: var(--accent-soft); color: var(--accent); border-radius: 3px; padding: 0 1px; }
 .rep-mini { padding: 4px 10px; font-size: 12px; }
+.uni-sep { width: 1px; height: 14px; background: var(--border); flex: none; align-self: center; }
 
 /* ---------- 响应式 ---------- */
 @media (max-width: 920px) {
