@@ -511,6 +511,11 @@ svg { display: block; }
 .rep-mini { padding: 4px 10px; font-size: 12px; }
 .uni-sep { width: 1px; height: 14px; background: var(--border); flex: none; align-self: center; }
 
+/* ---------- Deep Link 测试工具 ---------- */
+.dl-actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0; }
+.dl-open-btn { text-decoration: none; }
+.dl-open-btn[hidden] { display: none; }
+
 /* ---------- 响应式 ---------- */
 @media (max-width: 920px) {
   .sidebar {
