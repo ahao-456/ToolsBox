@@ -516,6 +516,14 @@ svg { display: block; }
 .dl-open-btn { text-decoration: none; }
 .dl-open-btn[hidden] { display: none; }
 
+/* ---------- SQL 格式化工具 ---------- */
+.sql-ind { width: auto; padding: 4px 8px; font-size: 12.5px; }
+.sql-snip-value {
+  flex: 1; min-width: 0;
+  font-family: var(--mono); font-size: 12px; line-height: 1.6;
+  white-space: pre-wrap; word-break: break-all;
+}
+
 /* ---------- 响应式 ---------- */
 @media (max-width: 920px) {
   .sidebar {
