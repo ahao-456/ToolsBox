@@ -554,6 +554,34 @@ svg { display: block; }
   vertical-align: 2px; margin-left: 2px;
 }
 
+/* ---------- JSON 对比工具 ---------- */
+.jd-inputs { display: flex; gap: 14px; }
+.jd-col { flex: 1; min-width: 0; }
+.jd-row {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 9px 14px; margin-bottom: 6px;
+  background: var(--fill); border: 1px solid transparent; border-radius: var(--radius-sm);
+}
+.jd-badge {
+  flex: none; font-size: 11px; font-weight: 600;
+  padding: 1px 9px; border-radius: 99px;
+}
+.jd-badge-mod { color: #d97706; background: rgba(217, 119, 6, 0.12); }
+.jd-badge-add { color: #16a34a; background: rgba(22, 163, 74, 0.12); }
+.jd-badge-del { color: #dc2626; background: rgba(220, 38, 38, 0.10); }
+.jd-badge-same { color: var(--text-3); background: var(--surface); border: 1px solid var(--border); }
+.jd-path {
+  flex: none; max-width: 45%;
+  font-family: var(--mono); font-size: 12.5px; font-weight: 600;
+  word-break: break-all;
+}
+.jd-vals { flex: 1; min-width: 200px; display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; font-family: var(--mono); font-size: 12.5px; }
+.jd-old { color: #dc2626; text-decoration: line-through; word-break: break-all; }
+.jd-new { color: #16a34a; font-weight: 600; word-break: break-all; }
+.jd-eq { color: var(--text-3); word-break: break-all; }
+.jd-miss { color: var(--text-3); font-family: var(--font); font-size: 11.5px; }
+.jd-arrow { color: var(--text-3); }
+
 /* ---------- 响应式 ---------- */
 @media (max-width: 920px) {
   .sidebar {
@@ -605,4 +633,8 @@ svg { display: block; }
 
   /* Cron 工具：构建输入 iOS 防缩放（特异性覆盖桌面 13px） */
   .cron-fcontrols .input { font-size: 16px; }
+
+  /* JSON 对比：双栏输入纵向堆叠 */
+  .jd-inputs { flex-direction: column; }
+  .jd-col { width: 100%; }
 }
