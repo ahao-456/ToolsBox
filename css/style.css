@@ -409,6 +409,7 @@ svg { display: block; }
   border-radius: 2px;
   box-shadow: 0 0 0 1px var(--border); /* 白底国旗（如日本）在浅色主题下需要描边 */
 }
+.cur-native { margin-left: 5px; font-size: 11.5px; font-weight: 400; color: var(--text-3); }
 .cur-symbol {
   width: 54px; flex: none; text-align: center;
   font-size: 20px; font-weight: 600; line-height: 1.25;
@@ -522,6 +523,35 @@ svg { display: block; }
   flex: 1; min-width: 0;
   font-family: var(--mono); font-size: 12px; line-height: 1.6;
   white-space: pre-wrap; word-break: break-all;
+}
+
+/* ---------- HTTP 状态码工具 ---------- */
+.hs-row {
+  display: flex; align-items: center; gap: 14px;
+  width: 100%; padding: 12px 16px; margin-bottom: 8px;
+  text-align: left; cursor: pointer;
+  background: var(--fill); border: 1px solid transparent; border-radius: var(--radius-sm);
+  transition: border-color 0.15s, background-color 0.15s;
+}
+.hs-row:hover { border-color: var(--border); background: var(--surface); }
+.hs-row:active { background: var(--accent-soft); }
+.hs-code {
+  width: 52px; flex: none; text-align: center;
+  font-family: var(--mono); font-size: 19px; font-weight: 700;
+}
+.hs-g0 { color: var(--text-3); }
+.hs-g1 { color: #0891b2; }
+.hs-g2 { color: #16a34a; }
+.hs-g3 { color: #d97706; }
+.hs-g4 { color: #ea580c; }
+.hs-g5 { color: #dc2626; }
+.hs-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.hs-name { font-size: 14px; font-weight: 600; }
+.hs-desc { font-size: 12.5px; line-height: 1.5; color: var(--text-3); }
+.hs-off {
+  font-size: 10.5px; font-weight: 500; color: var(--text-3);
+  border: 1px solid var(--border); border-radius: 99px; padding: 1px 7px;
+  vertical-align: 2px; margin-left: 2px;
 }
 
 /* ---------- 响应式 ---------- */

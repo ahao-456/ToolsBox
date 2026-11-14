@@ -275,11 +275,58 @@
     '马绍尔群岛': 'mh', '法属波利尼西亚': 'pf', '新喀里多尼亚': 'nc'
   };
 
+  /* ---------- 国家 / 地区的本地语言名称（endonym，当地官方 / 主要语言书写） ---------- */
+  var NATIVE = {
+    '中国': '中国', '中国香港': 'Hong Kong', '中国澳门': 'Macau', '中国台湾': '台灣',
+    '日本': 'にほん', '韩国': '대한민국', '朝鲜': '조선', '蒙古': 'Монгол Улс', '越南': 'Việt Nam',
+    '老挝': 'ລາວ', '柬埔寨': 'កម្ពុជា', '缅甸': 'မြန်မာ', '泰国': 'ไทย', '马来西亚': 'Malaysia',
+    '新加坡': 'Singapura', '文莱': 'Brunei Darussalam', '印度尼西亚': 'Indonesia', '菲律宾': 'Pilipinas', '东帝汶': 'Timór-Leste',
+    '印度': 'भारत', '巴基斯坦': 'پاکستان', '孟加拉国': 'বাংলাদেশ', '斯里兰卡': 'ශ්‍රී ලංකා', '尼泊尔': 'नेपाल',
+    '不丹': 'འབྲུག', '马尔代夫': 'ދިވެހި', '阿富汗': 'افغانستان', '哈萨克斯坦': 'Қазақстан', '乌兹别克斯坦': 'Oʻzbekiston',
+    '吉尔吉斯斯坦': 'Кыргызстан', '塔吉克斯坦': 'Тоҷикистон', '土库曼斯坦': 'Türkmenistan', '阿塞拜疆': 'Azərbaycan',
+    '亚美尼亚': 'Հայաստան', '格鲁吉亚': 'საქართველო', '土耳其': 'Türkiye', '塞浦路斯': 'Κύπρος', '以色列': 'ישראל',
+    '伊朗': 'ایران', '伊拉克': 'العراق', '沙特阿拉伯': 'السعودية', '也门': 'اليمن', '阿曼': 'عمان',
+    '阿联酋': 'الإمارات', '卡塔尔': 'قطر', '巴林': 'البحرين', '科威特': 'الكويت', '约旦': 'الأردن',
+    '黎巴嫩': 'لبنان', '叙利亚': 'سوريا',
+    '奥地利': 'Österreich', '比利时': 'België', '克罗地亚': 'Hrvatska', '爱沙尼亚': 'Eesti', '芬兰': 'Suomi',
+    '法国': 'France', '德国': 'Deutschland', '希腊': 'Ελλάδα', '爱尔兰': 'Éire', '意大利': 'Italia',
+    '拉脱维亚': 'Latvija', '立陶宛': 'Lietuva', '卢森堡': 'Lëtzebuerg', '马耳他': 'Malta', '荷兰': 'Nederland',
+    '葡萄牙': 'Portugal', '斯洛伐克': 'Slovensko', '斯洛文尼亚': 'Slovenija', '西班牙': 'España', '摩纳哥': 'Monaco',
+    '圣马力诺': 'San Marino', '梵蒂冈': 'Città del Vaticano', '安道尔': 'Andorra', '黑山': 'Crna Gora', '科索沃': 'Kosova',
+    '英国': 'United Kingdom', '瑞士': 'Schweiz', '列支敦士登': 'Liechtenstein', '挪威': 'Norge', '瑞典': 'Sverige',
+    '丹麦': 'Danmark', '冰岛': 'Ísland', '波兰': 'Polska', '捷克': 'Česko', '匈牙利': 'Magyarország',
+    '罗马尼亚': 'România', '保加利亚': 'България', '塞尔维亚': 'Србија', '北马其顿': 'Северна Македонија', '阿尔巴尼亚': 'Shqipëria',
+    '波黑': 'Bosna i Hercegovina', '乌克兰': 'Україна', '白俄罗斯': 'Беларусь', '摩尔多瓦': 'Moldova', '俄罗斯': 'Россия',
+    '美国': 'United States', '加拿大': 'Canada', '墨西哥': 'México', '伯利兹': 'Belize', '危地马拉': 'Guatemala',
+    '萨尔瓦多': 'El Salvador', '洪都拉斯': 'Honduras', '尼加拉瓜': 'Nicaragua', '哥斯达黎加': 'Costa Rica', '巴拿马': 'Panamá',
+    '古巴': 'Cuba', '牙买加': 'Jamaica', '海地': 'Ayiti', '多米尼加': 'República Dominicana', '巴哈马': 'Bahamas',
+    '开曼群岛': 'Cayman Islands', '巴巴多斯': 'Barbados', '安提瓜和巴布达': 'Antigua and Barbuda', '圣基茨和尼维斯': 'Saint Kitts and Nevis',
+    '圣卢西亚': 'Saint Lucia', '圣文森特和格林纳丁斯': 'Saint Vincent and the Grenadines', '格林纳达': 'Grenada', '多米尼克': 'Dominica',
+    '特立尼达和多巴哥': 'Trinidad and Tobago', '圭亚那': 'Guyana', '苏里南': 'Suriname', '哥伦比亚': 'Colombia',
+    '委内瑞拉': 'Venezuela', '厄瓜多尔': 'Ecuador', '秘鲁': 'Perú', '玻利维亚': 'Bolivia', '巴西': 'Brasil',
+    '巴拉圭': 'Paraguay', '乌拉圭': 'Uruguay', '阿根廷': 'Argentina', '智利': 'Chile',
+    '埃及': 'مصر', '利比亚': 'ليبيا', '突尼斯': 'تونس', '阿尔及利亚': 'الجزائر', '摩洛哥': 'المغرب',
+    '毛里塔尼亚': 'موريتانيا', '塞内加尔': 'Sénégal', '马里': 'Mali', '布基纳法索': 'Burkina Faso', '科特迪瓦': "Côte d'Ivoire",
+    '几内亚比绍': 'Guiné-Bissau', '多哥': 'Togo', '贝宁': 'Bénin', '尼日尔': 'Niger', '尼日利亚': 'Nigeria',
+    '加纳': 'Ghana', '几内亚': 'Guinée', '塞拉利昂': 'Sierra Leone', '利比里亚': 'Liberia', '冈比亚': 'The Gambia',
+    '佛得角': 'Cabo Verde', '圣多美和普林西比': 'São Tomé e Príncipe', '喀麦隆': 'Cameroun', '加蓬': 'Gabon', '乍得': 'Tchad',
+    '中非共和国': 'Centrafrique', '刚果（布）': 'Congo', '赤道几内亚': 'Guinea Ecuatorial', '刚果（金）': 'RD Congo',
+    '安哥拉': 'Angola', '赞比亚': 'Zambia', '津巴布韦': 'Zimbabwe', '马拉维': 'Malawi', '莫桑比克': 'Moçambique',
+    '马达加斯加': 'Madagasikara', '毛里求斯': 'Moris', '科摩罗': 'Komori', '塞舌尔': 'Seychelles', '南非': 'Suid-Afrika',
+    '纳米比亚': 'Namibia', '博茨瓦纳': 'Botswana', '莱索托': 'Lesotho', '斯威士兰': 'eSwatini', '埃塞俄比亚': 'ኢትዮጵያ',
+    '厄立特里亚': 'ኤርትራ', '吉布提': 'جيبوتي', '索马里': 'Soomaaliya', '肯尼亚': 'Kenya', '坦桑尼亚': 'Tanzania',
+    '乌干达': 'Uganda', '卢旺达': 'Rwanda', '布隆迪': 'Uburundi', '苏丹': 'السودان', '南苏丹': 'South Sudan',
+    '澳大利亚': 'Australia', '新西兰': 'Aotearoa', '斐济': 'Viti', '巴布亚新几内亚': 'Papua Niugini',
+    '所罗门群岛': 'Solomon Islands', '瓦努阿图': 'Vanuatu', '萨摩亚': 'Sāmoa', '汤加': 'Tonga', '图瓦卢': 'Tuvalu',
+    '基里巴斯': 'Kiribati', '瑙鲁': 'Naoero', '帕劳': 'Belau', '密克罗尼西亚联邦': 'Micronesia',
+    '马绍尔群岛': 'Majeļ', '法属波利尼西亚': 'Polynésie française', '新喀里多尼亚': 'Nouvelle-Calédonie'
+  };
+
   /* 扁平化索引（保持大洲顺序） */
   var FLAT = [];
   Object.keys(DATA).forEach(function (region) {
     DATA[region].forEach(function (e) {
-      FLAT.push({ region: region, country: e[0], name: e[1], code: e[2], sym: e[3] });
+      FLAT.push({ region: region, country: e[0], name: e[1], code: e[2], sym: e[3], native: NATIVE[e[0]] || '' });
     });
   });
 
@@ -305,7 +352,9 @@
           '<span class="cur-flagcell">' + flag + '</span>' +
           '<span class="cur-symbol">' + esc(e.sym) + '</span>' +
           '<span class="cur-info">' +
-            '<span class="cur-country">' + esc(e.country) + '</span>' +
+            '<span class="cur-country">' + esc(e.country) +
+              (e.native && e.native !== e.country ? ' <span class="cur-native">' + esc(e.native) + '</span>' : '') +
+            '</span>' +
             '<span class="cur-name">' + esc(e.name) + '</span>' +
           '</span>' +
           '<span class="cur-code" data-code="' + esc(e.code) + '" title="点击复制代码 ' + esc(e.code) + '">' + esc(e.code) + '</span>' +
@@ -341,6 +390,7 @@
           if (activeRegion !== '全部' && e.region !== activeRegion) return false;
           if (!q) return true;
           return e.country.toLowerCase().indexOf(q) !== -1 ||
+                 (e.native || '').toLowerCase().indexOf(q) !== -1 ||
                  e.name.toLowerCase().indexOf(q) !== -1 ||
                  e.code.toLowerCase().indexOf(q) !== -1 ||
                  e.sym.toLowerCase().indexOf(q) !== -1;
