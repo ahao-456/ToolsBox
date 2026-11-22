@@ -682,7 +682,51 @@ svg { display: block; }
   animation: pa-ring 2.8s ease-out infinite;
 }
 .pa-fab.open::before { animation: none; opacity: 0; }
-.pa-fab.busy { animation: pa-breathe 1.3s ease-in-out infinite; }
+.pa-fab.busy:not(.operating) { animation: pa-breathe 1.3s ease-in-out infinite; }
+
+/* 执行中且面板关闭：旋转外环 + 旋转图标 + “操作中”提示 */
+.pa-fab.operating::before { animation: none; opacity: 0; }
+.pa-fab.operating::after {
+  content: ""; position: absolute; inset: -5px; border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--accent);
+  border-right-color: var(--accent-ring);
+  animation: pa-spin 1s linear infinite;
+  pointer-events: none;
+}
+.pa-fab.operating .pa-fab-icon svg { animation: pa-spin 0.9s linear infinite; }
+@keyframes pa-spin { to { transform: rotate(360deg); } }
+
+.pa-fab-status {
+  position: absolute; left: 50%; bottom: calc(100% + 10px);
+  transform: translateX(-50%);
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 9px;
+  font-size: 10.5px; font-weight: 600; line-height: 1.3;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 1;
+  animation: pa-status-in 0.18s ease both;
+}
+.pa-fab-status.below {
+  bottom: auto;
+  top: calc(100% + 10px);
+}
+.pa-fab-status i {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-soft);
+  animation: pulse 1.5s ease infinite;
+}
+@keyframes pa-status-in {
+  from { opacity: 0; transform: translate(-50%, 4px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
 @keyframes pa-ring {
   0%   { transform: scale(0.9); opacity: 0.75; }
   70%  { transform: scale(1.28); opacity: 0; }
@@ -938,6 +982,10 @@ svg { display: block; }
 @media (prefers-reduced-motion: reduce) {
   .pa-fab::before,
   .pa-fab.busy,
+  .pa-fab.operating::after,
+  .pa-fab.operating .pa-fab-icon svg,
+  .pa-fab-status,
+  .pa-fab-status i,
   .pa-panel,
   .pa-msg,
   .pa-stream.streaming::after { animation: none !important; }

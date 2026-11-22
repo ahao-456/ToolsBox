@@ -90,12 +90,14 @@
     spark: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.7 2.1 2.1.7-2.1.7L19 20.6l-.7-2.1-2.1-.7 2.1-.7L19 15z"/></svg>',
     close: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
     gear: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',
-    send: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3L10.5 13.5"/><path d="M21 3l-6.5 18-4-8-8-4L21 3z"/></svg>'
+    send: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3L10.5 13.5"/><path d="M21 3l-6.5 18-4-8-8-4L21 3z"/></svg>',
+    spinner: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg>'
   };
 
   var TEMPLATE =
     '<button class="pa-fab" id="pa-fab" type="button" aria-label="打开 ToolsBox-Agent" title="ToolsBox-Agent（可拖动）" draggable="false">' +
-      '<span class="pa-fab-icon">' + ICON.spark + '</span>' +
+      '<span class="pa-fab-icon" id="pa-fab-icon">' + ICON.spark + '</span>' +
+      '<span class="pa-fab-status" id="pa-fab-status" hidden><i></i>操作中</span>' +
     '</button>' +
     '<section class="pa-panel" id="pa-panel" role="dialog" aria-label="ToolsBox-Agent 控制台" hidden>' +
       '<header class="pa-head">' +
@@ -162,6 +164,7 @@
   };
 
   var suppressClick = false;
+  var suppressTimer = null;
   var el = {};
   var actionTrace = [];       // 内置模型展示用的“执行步骤”记录
   var settingsMode = 'builtin'; // 设置面板里待保存的模式
@@ -1315,6 +1318,30 @@
     state.busy = busy;
     el.send.disabled = busy;
     el.fab.classList.toggle('busy', busy);
+    updateFabVisual();
+  }
+
+  /** 同步悬浮球状态：执行中且面板关闭时显示旋转图标与“操作中”提示 */
+  function updateFabVisual() {
+    if (!el.fab) return;
+    var operating = state.busy && !state.open;
+
+    el.fab.classList.toggle('operating', operating);
+    if (el.fabIcon) {
+      el.fabIcon.innerHTML = operating ? ICON.spinner : (state.open ? ICON.close : ICON.spark);
+    }
+    if (el.fabStatus) {
+      el.fabStatus.hidden = !operating;
+      el.fabStatus.classList.toggle('below', !!(state.pos && state.pos.y < 48));
+    }
+
+    var label = operating
+      ? 'ToolsBox-Agent 正在操作页面，点击查看进度'
+      : (state.open ? '关闭 ToolsBox-Agent' : '打开 ToolsBox-Agent');
+    el.fab.setAttribute('aria-label', label);
+    el.fab.title = operating
+      ? label
+      : (state.open ? '关闭 ToolsBox-Agent' : 'ToolsBox-Agent（可拖动）');
   }
 
   function updateStatus() {
@@ -1414,6 +1441,7 @@
     };
     el.fab.style.left = state.pos.x + 'px';
     el.fab.style.top = state.pos.y + 'px';
+    if (el.fabStatus) el.fabStatus.classList.toggle('below', state.pos.y < 48);
   }
 
   function positionPanel() {
@@ -1443,8 +1471,7 @@
     state.open = open;
     el.panel.hidden = !open;
     el.fab.classList.toggle('open', open);
-    el.fab.setAttribute('aria-label', open ? '关闭 ToolsBox-Agent' : '打开 ToolsBox-Agent');
-    el.fab.innerHTML = '<span class="pa-fab-icon">' + (open ? ICON.close : ICON.spark) + '</span>';
+    updateFabVisual();
     if (open) {
       positionPanel();
       scrollMsgs();
@@ -1457,9 +1484,14 @@
   function bindFab() {
     el.fab.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'mouse' && e.button !== 0) return;
+
+      // 新一次交互开始：清掉上一次拖拽留下的 click 抑制
+      suppressClick = false;
+      if (suppressTimer) { clearTimeout(suppressTimer); suppressTimer = null; }
+
       state.drag = { sx: e.clientX, sy: e.clientY, ox: state.pos.x, oy: state.pos.y, moved: false };
       try { el.fab.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
-      e.preventDefault();
+      // 注意：这里不能 preventDefault，否则部分移动端浏览器不会派发后续 click
     });
 
     el.fab.addEventListener('pointermove', function (e) {
@@ -1467,12 +1499,28 @@
       if (!d) return;
       var dx = e.clientX - d.sx;
       var dy = e.clientY - d.sy;
-      if (!d.moved && Math.abs(dx) + Math.abs(dy) < 4) return;
-      d.moved = true;
-      el.fab.classList.add('dragging');
+
+      if (!d.moved) {
+        // 用欧氏距离并放宽阈值，避免手指轻微抖动被判定为拖拽
+        if (Math.sqrt(dx * dx + dy * dy) < 10) return;
+        d.moved = true;
+        el.fab.classList.add('dragging');
+      }
+
       applyFab(d.ox + dx, d.oy + dy);
       if (state.open) positionPanel();
+      if (e.cancelable) e.preventDefault();
     });
+
+    function suppressNextClick() {
+      suppressClick = true;
+      if (suppressTimer) clearTimeout(suppressTimer);
+      // 移动端 click 可能延迟，窗口留足；下一次 pointerdown 也会主动清除
+      suppressTimer = setTimeout(function () {
+        suppressClick = false;
+        suppressTimer = null;
+      }, 500);
+    }
 
     function endDrag(e) {
       var d = state.drag;
@@ -1480,10 +1528,12 @@
       state.drag = null;
       el.fab.classList.remove('dragging');
       try { el.fab.releasePointerCapture(e.pointerId); } catch (err) { /* ignore */ }
-      suppressClick = true;
-      setTimeout(function () { suppressClick = false; }, 0);
-      if (d.moved) savePos();
-      else setOpen(!state.open);
+
+      if (d.moved) {
+        savePos();
+        suppressNextClick();
+      }
+      // 单击不在这里 toggle：统一交给 click 事件，避免 pointerup + click 触发两次
     }
 
     el.fab.addEventListener('pointerup', endDrag);
@@ -1493,11 +1543,16 @@
       el.fab.classList.remove('dragging');
       try { el.fab.releasePointerCapture(e.pointerId); } catch (err) { /* ignore */ }
       applyFab(state.pos.x, state.pos.y);
+      suppressNextClick();
     });
 
-    // 键盘（Enter / Space）触发的 click 也走这里；鼠标拖动产生的 click 会被抑制
+    // 单击（含键盘 Enter / Space）统一在这里切换面板
     el.fab.addEventListener('click', function () {
-      if (suppressClick) { suppressClick = false; return; }
+      if (suppressClick) {
+        suppressClick = false;
+        if (suppressTimer) { clearTimeout(suppressTimer); suppressTimer = null; }
+        return;
+      }
       setOpen(!state.open);
     });
   }
@@ -1579,6 +1634,8 @@
     document.body.insertAdjacentHTML('beforeend', TEMPLATE);
 
     el.fab = document.getElementById('pa-fab');
+    el.fabIcon = document.getElementById('pa-fab-icon');
+    el.fabStatus = document.getElementById('pa-fab-status');
     el.panel = document.getElementById('pa-panel');
     el.status = document.getElementById('pa-status');
     el.body = document.getElementById('pa-body');
@@ -1607,6 +1664,7 @@
       state.pos = { x: window.innerWidth - size - 22, y: window.innerHeight - size - 22 };
     }
     applyFab(state.pos.x, state.pos.y);
+    updateFabVisual();
 
     addMsg('bot', aiEnabled()
       ? '我是 ToolsBox-Agent，已连接「' + state.cfg.model + '」。\n可以直接帮你操作工具库：打开工具、填参数、点按钮、切主题。'
