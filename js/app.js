@@ -116,6 +116,11 @@
           );
         }
         return Promise.resolve(fallbackCopy(text));
+      },
+
+      /** 切换并持久化主题（供 ToolsBox-Agent 等外部调用） */
+      setTheme: function (theme) {
+        applyTheme(theme === 'light' ? 'light' : 'dark', true);
       }
     }
   };
